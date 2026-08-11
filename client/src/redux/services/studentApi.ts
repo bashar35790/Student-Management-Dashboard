@@ -13,6 +13,11 @@ function unwrap<T>(response: unknown): T {
   return (response as ApiEnvelope<T>).data
 }
 
+function unwrapPaginated(response: unknown): PaginatedResult<Student> {
+  const envelope = response as ApiEnvelope<Student[]>
+  return { data: envelope.data, meta: envelope.meta ?? { total: 0, page: 1, limit: 10, totalPages: 0 } }
+}
+
 export const studentApi = createApi({
   reducerPath: 'studentApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
@@ -20,7 +25,7 @@ export const studentApi = createApi({
   endpoints: (builder) => ({
     getStudents: builder.query<PaginatedResult<Student>, StudentQuery>({
       query: (params) => ({ url: '/students', params }),
-      transformResponse: (response: unknown) => unwrap<PaginatedResult<Student>>(response),
+      transformResponse: (response: unknown) => unwrapPaginated(response),
       providesTags: ['Student'],
     }),
     getStudent: builder.query<Student, string>({
