@@ -1,6 +1,5 @@
 'use client'
 
-import { Spinner } from './Spinner'
 import { Button } from './Button'
 
 interface ConfirmDialogProps {
