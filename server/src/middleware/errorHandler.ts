@@ -15,6 +15,9 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
     if (error.code === 'P2002') {
       status = 409
       message = 'Resource already exists with the same unique value'
+    } else if (error.code === 'P2023') {
+      status = 400
+      message = 'Invalid resource id'
     } else if (error.code === 'P2025') {
       status = 404
       message = 'Resource not found'
