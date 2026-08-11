@@ -1,69 +1,137 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useMemo, useState } from 'react'
+import Link from 'next/link'
+import { ClassFilter } from '@/components/student/ClassFilter'
+import { SearchBar } from '@/components/student/SearchBar'
+import { StatusFilter } from '@/components/student/StatusFilter'
+import { StudentTable } from '@/components/student/StudentTable'
+import { Alert } from '@/components/ui/Alert'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { ErrorState } from '@/components/ui/ErrorState'
+import { LoadingState } from '@/components/ui/LoadingState'
+import { Pagination } from '@/components/ui/Pagination'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import {
+  setClassFilter,
+  setPage,
+  setSearch,
+  setSort,
+  setStatus,
+} from '@/redux/features/studentListSlice'
+import { useDeleteStudentMutation, useGetStudentsQuery } from '@/redux/services/studentApi'
+import { getApiErrorMessage } from '@/lib/errors'
+import type { Student } from '@/types/student'
+
+type Feedback = { type: 'success' | 'error'; message: string } | null
+
+export default function StudentsPage() {
+  const dispatch = useAppDispatch()
+  const { search, status, class: classFilter, page, sortBy, sortOrder } = useAppSelector(
+    (state) => state.studentList,
+  )
+
+  const [studentToDelete, setStudentToDelete] = useState<Student | null>(null)
+  const [feedback, setFeedback] = useState<Feedback>(null)
+
+  const { data, isLoading, isError, refetch } = useGetStudentsQuery({
+    search,
+    status: status || undefined,
+    class: classFilter || undefined,
+    page,
+    limit: 10,
+    sortBy,
+    sortOrder,
+  })
+
+  const [deleteStudent, { isLoading: isDeleting }] = useDeleteStudentMutation()
+
+  const classOptions = useMemo(() => {
+    const classes = new Set(data?.data.map((student) => student.class) ?? [])
+    return [...classes].sort()
+  }, [data])
+
+  const handleSort = (field: 'name' | 'createdAt' | 'class') => {
+    const nextOrder = sortBy === field && sortOrder === 'asc' ? 'desc' : 'asc'
+    dispatch(setSort({ sortBy: field, sortOrder: nextOrder }))
+  }
+
+  const handleDelete = async () => {
+    if (!studentToDelete) return
+    try {
+      await deleteStudent(studentToDelete.id).unwrap()
+      setFeedback({ type: 'success', message: `${studentToDelete.name} was deleted.` })
+    } catch (error) {
+      setFeedback({ type: 'error', message: getApiErrorMessage(error, 'Failed to delete student.') })
+    }
+    setStudentToDelete(null)
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Students</h1>
+          <p className="text-sm text-gray-600">View, search, filter and manage student records.</p>
+        </div>
+        <Link
+          href="/students/new"
+          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+        >
+          Add Student
+        </Link>
+      </div>
+
+      {feedback && (
+        <div className="mb-4">
+          <Alert variant={feedback.type}>{feedback.message}</Alert>
+        </div>
+      )}
+
+      <div className="mb-4 grid gap-3 sm:grid-cols-3">
+        <SearchBar value={search} onChange={(value) => dispatch(setSearch(value))} />
+        <StatusFilter value={status} onChange={(value) => dispatch(setStatus(value))} />
+        <ClassFilter
+          value={classFilter}
+          onChange={(value) => dispatch(setClassFilter(value))}
+          classes={classOptions}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      </div>
+
+      {isLoading ? (
+        <LoadingState />
+      ) : isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : data && data.data.length === 0 ? (
+        <EmptyState />
+      ) : data ? (
+        <>
+          <StudentTable
+            students={data.data}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSort={handleSort}
+            onDelete={setStudentToDelete}
+          />
+          <div className="mt-4">
+            <Pagination
+              page={page}
+              totalPages={data.meta.totalPages}
+              onPageChange={(nextPage) => dispatch(setPage(nextPage))}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+          </div>
+        </>
+      ) : null}
+
+      <ConfirmDialog
+        open={studentToDelete !== null}
+        title="Delete student"
+        message={`Are you sure you want to delete ${studentToDelete?.name ?? 'this student'}? This action cannot be undone.`}
+        busy={isDeleting}
+        onConfirm={handleDelete}
+        onCancel={() => setStudentToDelete(null)}
+      />
+    </main>
+  )
 }
