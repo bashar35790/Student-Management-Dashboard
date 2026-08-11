@@ -10,7 +10,7 @@ const app = express()
 app.use(cors({ origin: env.CLIENT_URL, credentials: true }))
 app.use(express.json())
 
-app.get('/', (_req, res) => {
+app.get('/api/v1', (_req, res) => {
   res.json({ success: true, message: 'Student Management API' })
 })
 
