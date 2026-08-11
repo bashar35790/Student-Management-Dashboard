@@ -18,6 +18,14 @@ const seedStudents = [
   { name: 'Julia Roberts', email: 'julia.roberts@example.com', phone: '+1 555-0110', class: 'Grade 11A', status: 'INACTIVE' },
   { name: 'Kevin Patel', email: 'kevin.patel@example.com', phone: '+1 555-0111', class: 'Grade 12A', status: 'ACTIVE' },
   { name: 'Laura Martinez', email: 'laura.martinez@example.com', phone: '+1 555-0112', class: 'Grade 12B', status: 'ACTIVE' },
+  { name: 'Michael Brown', email: 'michael.brown@example.com', phone: '+1 555-0113', class: 'Grade 9A', status: 'ACTIVE' },
+  { name: 'Nina Patel', email: 'nina.patel@example.com', phone: '+1 555-0114', class: 'Grade 9B', status: 'ACTIVE' },
+  { name: 'Omar Faruk', email: 'omar.faruk@example.com', phone: '+1 555-0115', class: 'Grade 10A', status: 'INACTIVE' },
+  { name: 'Priya Sharma', email: 'priya.sharma@example.com', phone: '+1 555-0116', class: 'Grade 10B', status: 'ACTIVE' },
+  { name: 'Ryan Thompson', email: 'ryan.thompson@example.com', phone: '+1 555-0117', class: 'Grade 11A', status: 'ACTIVE' },
+  { name: 'Sofia Garcia', email: 'sofia.garcia@example.com', phone: '+1 555-0118', class: 'Grade 11B', status: 'INACTIVE' },
+  { name: 'Tom Harris', email: 'tom.harris@example.com', phone: '+1 555-0119', class: 'Grade 12A', status: 'ACTIVE' },
+  { name: 'Uma Devi', email: 'uma.devi@example.com', phone: '+1 555-0120', class: 'Grade 12B', status: 'ACTIVE' },
 ] as const
 
 async function main() {
