@@ -26,6 +26,10 @@ export const studentQuerySchema = z.object({
   sortOrder: z.enum(['asc', 'desc']).optional(),
 })
 
+export const studentParamsSchema = z.object({
+  id: z.string().trim().min(1, 'Student id is required'),
+})
+
 export type StudentStatus = z.infer<typeof studentStatusSchema>
 export type CreateStudentInput = z.infer<typeof createStudentSchema>
 export type UpdateStudentInput = z.infer<typeof updateStudentSchema>
