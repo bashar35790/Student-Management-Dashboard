@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { Spinner } from './Spinner'
 
-type Variant = 'primary' | 'secondary' | 'danger' | 'ghost'
+type Variant = 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost'
 type Size = 'sm' | 'md'
 
 const baseStyles =
@@ -11,6 +11,7 @@ const variantStyles: Record<Variant, string> = {
   primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600',
   secondary: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50',
   danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600',
+  dangerOutline: 'border border-red-300 bg-white text-red-600 hover:bg-red-50',
   ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
 }
 
