@@ -21,6 +21,10 @@ out/
 prisma/dev.db
 prisma/*.db
 
+# planning docs (internal only)
+plan.md
+execution-plan.md
+
 # misc
 .DS_Store
 *.log

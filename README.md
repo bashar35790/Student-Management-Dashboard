@@ -10,8 +10,7 @@ A Student Management Dashboard built for the FlyNest Global PLC junior fullstack
 student-management/
 ├── client/     # Next.js + TypeScript + Redux Toolkit + Tailwind CSS
 ├── server/     # Express 5 + TypeScript + Prisma + PostgreSQL
-├── plan.md
-└── execution-plan.md
+
 ```
 
 ## Status
