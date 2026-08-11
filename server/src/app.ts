@@ -7,7 +7,18 @@ import studentRoutes from './routes/student.routes.js'
 
 const app = express()
 
-app.use(cors({ origin: env.CLIENT_URL, credentials: true }))
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || env.clientOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error(`Origin ${origin} not allowed by CORS`))
+      }
+    },
+    credentials: true,
+  }),
+)
 app.use(express.json())
 
 app.get('/api/v1', (_req, res) => {
