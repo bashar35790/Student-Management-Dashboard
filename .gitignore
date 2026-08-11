@@ -20,6 +20,7 @@ out/
 # prisma
 prisma/dev.db
 prisma/*.db
+server/src/generated/
 
 # planning docs (internal only)
 plan.md
