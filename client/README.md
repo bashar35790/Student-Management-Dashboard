@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Student Management Client
 
-## Getting Started
+## Project Overview
+This is the client-side implementation of the Student Management Dashboard, built using Next.js (App Router), TypeScript, Tailwind CSS, and Redux Toolkit. It features a premium, modern "glassmorphism" design system and consumes a REST API for comprehensive CRUD operations with sorting, filtering, and pagination.
 
-First, run the development server:
+## Requirements
+- Node.js 20+
+- npm
 
+## Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
+The application requires an environment variable to point to the backend API.
+Example (`.env.local`):
+```
+NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
+```
+*Do not commit real credentials or secrets.*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Setup
+The client application does not directly connect to a database. See the server directory for database setup instructions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running the Application
+```bash
+npm run dev
+```
 
-## Learn More
+## Available Scripts
+- `npm run dev`: Starts the Next.js development server.
+- `npm run build`: Builds the application for production.
+- `npm run start`: Serves the production build.
+- `npm run lint`: Runs ESLint for code quality.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Additional Notes
+The application state is managed using Redux Toolkit Query (RTK Query) for efficient server state caching and automated data fetching, while relying on Tailwind v4 CSS for dynamic styling and glassmorphism theming.
