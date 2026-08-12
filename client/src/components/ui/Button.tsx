@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { Spinner } from './Spinner'
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost'
-type Size = 'sm' | 'md'
+type Size = 'sm' | 'md' | 'lg'
 
 const baseStyles =
   'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
@@ -18,6 +18,7 @@ const variantStyles: Record<Variant, string> = {
 const sizeStyles: Record<Size, string> = {
   sm: 'px-3 py-1.5',
   md: 'px-4 py-2',
+  lg: 'px-5 py-2.5',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

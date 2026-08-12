@@ -1,4 +1,5 @@
 import { SelectHTMLAttributes, useState, useRef, useEffect, forwardRef } from 'react'
+import { ChevronUpDownIcon, CheckIcon } from './icons'
 
 export interface SelectOption {
   value: string
@@ -79,6 +80,8 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
             className={`glass-panel w-full rounded-md px-3 py-2.5 pr-10 text-left text-sm text-foreground outline-none transition-all focus:ring-2 ${
               error
                 ? 'border-red-400 focus:border-red-500 focus:ring-red-200'
@@ -87,17 +90,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           >
             <span className="block truncate">{selectedLabel}</span>
             <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-foreground/50">
-              <svg className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <ChevronUpDownIcon className="h-4 w-4" />
             </span>
           </button>
 
           {isOpen && (
-            <ul className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl glass-panel shadow-xl focus:outline-none border-white/20 p-1">
+            <ul
+              role="listbox"
+              className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl glass-panel shadow-xl focus:outline-none border-white/20 p-1 custom-scroll"
+            >
               {options.map((option) => (
                 <li
                   key={option.value}
+                  role="option"
+                  aria-selected={internalValue === option.value}
                   onClick={() => handleOptionClick(option.value)}
                   className={`relative cursor-pointer select-none py-2 pl-3 pr-9 text-sm rounded-lg transition-colors ${
                     internalValue === option.value
@@ -108,9 +114,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   <span className="block truncate">{option.label}</span>
                   {internalValue === option.value && (
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3 text-primary-foreground">
-                      <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
+                      <CheckIcon className="h-4 w-4" />
                     </span>
                   )}
                 </li>

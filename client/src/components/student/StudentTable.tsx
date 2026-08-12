@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Badge, type BadgeTone } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { SortableHeader } from '@/components/student/SortableHeader'
+import { PencilIcon, TrashIcon } from '@/components/ui/icons'
 import type { Student } from '@/types/student'
 
 interface StudentTableProps {
@@ -43,12 +44,21 @@ function Actions({ student, onDelete }: { student: Student; onDelete: (s: Studen
     <div className="flex items-center justify-end gap-2">
       <Link
         href={`/students/${student.id}/edit`}
-        className="inline-flex items-center rounded-md border border-gray-300 bg-white/50 px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-white/80 dark:border-gray-700 dark:bg-gray-800/50 dark:hover:bg-gray-700/80"
+        aria-label={`Edit ${student.name}`}
+        title="Edit student"
+        className="inline-flex items-center rounded-md border border-gray-300 bg-white/50 px-3 py-1.5 text-sm font-medium text-foreground transition-all hover:bg-white/80 hover:border-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-gray-700 dark:bg-gray-800/50 dark:hover:bg-gray-700/80"
       >
-        Edit
+        <PencilIcon className="h-4 w-4" />
+        <span className="hidden sm:inline">Edit</span>
       </Link>
-      <Button variant="dangerOutline" size="sm" onClick={() => onDelete(student)}>
-        Delete
+      <Button
+        variant="dangerOutline"
+        size="sm"
+        onClick={() => onDelete(student)}
+        aria-label={`Delete ${student.name}`}
+      >
+        <TrashIcon className="h-4 w-4" />
+        <span className="hidden sm:inline">Delete</span>
       </Button>
     </div>
   )

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import { Providers } from "./providers";
+import { GraduationCapIcon, UsersIcon } from "@/components/ui/icons";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,23 +33,40 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <header className="glass sticky top-0 z-50 border-b-0 border-white/20">
-            <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
-              <Link href="/" className="text-xl font-bold text-primary flex items-center gap-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                  <path d="M12 8L6 20H18L12 8Z" fill="currentColor" />
-                </svg>
-                Student Management
+          <header className="glass sticky top-0 z-50">
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3">
+              <Link
+                href="/"
+                className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-[0_4px_14px_0_rgba(255,45,95,0.39)]">
+                  <GraduationCapIcon className="h-5 w-5" />
+                </span>
+                <span className="text-lg font-bold tracking-tight text-foreground">
+                  Student Management
+                  <span className="ml-2 hidden rounded-full border border-white/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-foreground/50 sm:inline">
+                    Admin
+                  </span>
+                </span>
               </Link>
-              <nav className="flex items-center gap-4 text-sm font-medium text-foreground/80">
-                <Link href="/" className="hover:text-primary transition-colors">
+              <nav aria-label="Main" className="flex items-center gap-1">
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-white/40 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:hover:bg-white/10"
+                >
+                  <UsersIcon className="h-4 w-4" />
                   Students
                 </Link>
               </nav>
             </div>
           </header>
           {children}
+          <footer className="mt-auto border-t border-white/5 py-6">
+            <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-2 px-4 text-xs text-foreground/45 sm:flex-row">
+              <p>&copy; {new Date().getFullYear()} Student Management Dashboard</p>
+              <p>Built with Next.js, Redux Toolkit &amp; Tailwind CSS</p>
+            </div>
+          </footer>
         </Providers>
       </body>
     </html>

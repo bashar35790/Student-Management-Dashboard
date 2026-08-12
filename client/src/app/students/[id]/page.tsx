@@ -1,21 +1,61 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
+import { BackLink } from '@/components/ui/BackLink'
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { LoadingState } from '@/components/ui/LoadingState'
+import { Alert } from '@/components/ui/Alert'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
+import { CheckIcon, CopyIcon, PencilIcon, TrashIcon } from '@/components/ui/icons'
 import { useDeleteStudentMutation, useGetStudentQuery } from '@/redux/services/studentApi'
 import { getApiErrorMessage } from '@/lib/errors'
 
-function DetailRow({ label, value }: { label: string; value: string }) {
+function CopyValue({ value, label }: { value: string; label: string }) {
+  const [copied, setCopied] = useState(false)
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
+
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between py-2">
+    <button
+      type="button"
+      onClick={copy}
+      aria-label={`Copy ${label}`}
+      title="Copy to clipboard"
+      className="inline-flex cursor-pointer rounded p-1 text-foreground/40 transition-colors hover:text-primary"
+    >
+      {copied ? <CheckIcon className="h-4 w-4 text-green-500" /> : <CopyIcon className="h-4 w-4" />}
+    </button>
+  )
+}
+
+function DetailRow({
+  label,
+  value,
+  copyable,
+}: {
+  label: string
+  value: string
+  copyable?: boolean
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4 py-3">
       <dt className="text-sm text-foreground/50 uppercase tracking-wider">{label}</dt>
-      <dd className="text-sm font-medium text-foreground">{value}</dd>
+      <dd className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+        <span className="text-right break-all">{value}</span>
+        {copyable && <CopyValue value={value} label={label} />}
+      </dd>
     </div>
   )
 }
@@ -29,6 +69,12 @@ export default function StudentDetailsPage() {
   const { data: student, isLoading, isError, refetch } = useGetStudentQuery(params.id)
   const [deleteStudent, { isLoading: isDeleting }] = useDeleteStudentMutation()
 
+  useEffect(() => {
+    if (!feedback) return
+    const timer = setTimeout(() => setFeedback(null), 4000)
+    return () => clearTimeout(timer)
+  }, [feedback])
+
   const handleDelete = async () => {
     if (!student) return
     try {
@@ -40,7 +86,13 @@ export default function StudentDetailsPage() {
     }
   }
 
-  if (isLoading) return <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8"><LoadingState /></main>
+  if (isLoading) {
+    return (
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
+        <LoadingState variant="card" />
+      </main>
+    )
+  }
 
   if (isError || !student) {
     return (
@@ -52,14 +104,12 @@ export default function StudentDetailsPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-      <Link href="/" className="text-sm text-foreground/70 hover:text-primary transition-colors">
-        &larr; Back to students
-      </Link>
+      <BackLink href="/">Back to students</BackLink>
 
       <div className="mt-4 rounded-xl glass-panel border-white/20 shadow-lg p-6 sm:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-5">
-            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-2xl font-bold text-primary shadow-inner border border-primary/20">
+            <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-hover text-2xl font-bold text-primary-foreground shadow-[0_4px_14px_0_rgba(255,45,95,0.39)]">
               {student.name.charAt(0).toUpperCase()}
             </span>
             <div>
@@ -69,24 +119,32 @@ export default function StudentDetailsPage() {
               </div>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex items-center gap-2">
             <Link
               href={`/students/${student.id}/edit`}
-              className="inline-flex items-center rounded-md glass px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-white/40 shadow-sm hover:shadow"
+              className="inline-flex items-center gap-2 rounded-md glass px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-white/40 shadow-sm hover:shadow"
             >
+              <PencilIcon className="h-4 w-4" />
               Edit
             </Link>
             <Button variant="dangerOutline" onClick={() => setConfirmOpen(true)}>
+              <TrashIcon className="h-4 w-4" />
               Delete
             </Button>
           </div>
         </div>
 
-        {feedback && <p className="mt-6 rounded-md bg-red-50/50 glass px-4 py-3 text-sm text-red-700">{feedback}</p>}
+        {feedback && (
+          <div className="mt-6 animate-slide-up">
+            <Alert variant="error" onDismiss={() => setFeedback(null)}>
+              {feedback}
+            </Alert>
+          </div>
+        )}
 
-        <dl className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-6">
-          <DetailRow label="Email" value={student.email} />
-          <DetailRow label="Phone" value={student.phone} />
+        <dl className="mt-8 flex flex-col divide-y divide-white/10 border-t border-white/10 pt-2">
+          <DetailRow label="Email" value={student.email} copyable />
+          <DetailRow label="Phone" value={student.phone} copyable />
           <DetailRow label="Class" value={student.class} />
           <DetailRow label="Created" value={new Date(student.createdAt).toLocaleString()} />
           <DetailRow label="Last updated" value={new Date(student.updatedAt).toLocaleString()} />

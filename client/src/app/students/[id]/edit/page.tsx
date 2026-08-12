@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useParams, useRouter } from 'next/navigation'
 import { StudentForm, type StudentFormValues } from '@/components/student/StudentForm'
+import { BackLink } from '@/components/ui/BackLink'
 import { ErrorState } from '@/components/ui/ErrorState'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { useGetStudentQuery, useUpdateStudentMutation } from '@/redux/services/studentApi'
@@ -30,7 +30,7 @@ export default function EditStudentPage() {
   if (isLoading) {
     return (
       <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-        <LoadingState />
+        <LoadingState variant="card" />
       </main>
     )
   }
@@ -45,20 +45,20 @@ export default function EditStudentPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-      <Link href={`/students/${student.id}`} className="text-sm text-foreground/70 hover:text-primary transition-colors">
-        &larr; Back to student
-      </Link>
-      <h1 className="mt-3 mb-6 text-3xl font-bold text-foreground tracking-tight">Edit Student</h1>
-
-      <div>
-        <StudentForm
-          initialValues={student}
-          submitLabel="Save Changes"
-          isSubmitting={isUpdating}
-          serverError={serverError}
-          onSubmit={handleSubmit}
-        />
+      <BackLink href={`/students/${student.id}`}>Back to student</BackLink>
+      <div className="mt-4 mb-6">
+        <h1 className="text-3xl font-bold text-foreground tracking-tight">Edit Student</h1>
+        <p className="text-sm text-foreground/60 mt-1">Update the details for {student.name}.</p>
       </div>
+
+      <StudentForm
+        initialValues={student}
+        submitLabel="Save Changes"
+        isSubmitting={isUpdating}
+        cancelHref={`/students/${student.id}`}
+        serverError={serverError}
+        onSubmit={handleSubmit}
+      />
     </main>
   )
 }

@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { StudentForm, type StudentFormValues } from '@/components/student/StudentForm'
+import { BackLink } from '@/components/ui/BackLink'
 import { useCreateStudentMutation } from '@/redux/services/studentApi'
 import { getApiErrorMessage } from '@/lib/errors'
 
@@ -24,19 +24,21 @@ export default function NewStudentPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-      <Link href="/" className="text-sm text-foreground/70 hover:text-primary transition-colors">
-        &larr; Back to students
-      </Link>
-      <h1 className="mt-3 mb-6 text-3xl font-bold text-foreground tracking-tight">Add Student</h1>
-
-      <div>
-        <StudentForm
-          submitLabel="Create Student"
-          isSubmitting={isLoading}
-          serverError={serverError}
-          onSubmit={handleSubmit}
-        />
+      <BackLink href="/">Back to students</BackLink>
+      <div className="mt-4 mb-6">
+        <h1 className="text-3xl font-bold text-foreground tracking-tight">Add Student</h1>
+        <p className="text-sm text-foreground/60 mt-1">
+          Create a new student record. Fields marked are required.
+        </p>
       </div>
+
+      <StudentForm
+        submitLabel="Create Student"
+        isSubmitting={isLoading}
+        cancelHref="/"
+        serverError={serverError}
+        onSubmit={handleSubmit}
+      />
     </main>
   )
 }

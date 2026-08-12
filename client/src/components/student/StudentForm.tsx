@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import Link from 'next/link'
 import { z } from 'zod'
 import { STUDENT_STATUSES, type StudentStatus } from '@/types/student'
 import { Alert } from '@/components/ui/Alert'
@@ -37,6 +38,7 @@ interface StudentFormProps {
   initialValues?: StudentFormValues
   isSubmitting?: boolean
   submitLabel?: string
+  cancelHref?: string
   serverError?: string | null
   onSubmit: (values: StudentFormValues) => Promise<void> | void
 }
@@ -45,6 +47,7 @@ export function StudentForm({
   initialValues,
   isSubmitting = false,
   submitLabel = 'Save',
+  cancelHref,
   serverError,
   onSubmit,
 }: StudentFormProps) {
@@ -73,7 +76,15 @@ export function StudentForm({
         </div>
       </div>
 
-      <div className="flex justify-end mt-2">
+      <div className="flex justify-end gap-3 mt-2">
+        {cancelHref && (
+          <Link
+            href={cancelHref}
+            className="inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-white/40 hover:text-foreground dark:hover:bg-white/10"
+          >
+            Cancel
+          </Link>
+        )}
         <Button type="submit" loading={isSubmitting}>
           {submitLabel}
         </Button>
