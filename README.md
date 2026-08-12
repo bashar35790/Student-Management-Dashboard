@@ -40,18 +40,18 @@ cd client && npm install && cd ..
 
 ### Server (`server/.env`)
 
-| Variable      | Description                                    | Default                     |
-|---------------|------------------------------------------------|-----------------------------|
-| `NODE_ENV`    | `development` / `production`                   | `development`               |
-| `DATABASE_URL`| PostgreSQL connection string                   | *required*                  |
-| `PORT`        | API port                                       | `5000`                      |
-| `CLIENT_URL`  | Allowed CORS origin                            | `http://localhost:3000`     |
+| Variable       | Description                  | Default                                                |
+| -------------- | ---------------------------- | ------------------------------------------------------ |
+| `NODE_ENV`     | `development` / `production` | `development`                                          |
+| `DATABASE_URL` | PostgreSQL connection string | _required_                                             |
+| `PORT`         | API port                     | `5000`                                                 |
+| `CLIENT_URL`   | Allowed CORS origin          | `https://student-management-dashboard-iota.vercel.app` |
 
 ### Client (`client/.env.local`)
 
-| Variable               | Description                          | Default                           |
-|------------------------|--------------------------------------|-----------------------------------|
-| `NEXT_PUBLIC_API_URL`  | Base URL of the API                  | `http://localhost:5000/api/v1`    |
+| Variable              | Description         | Default                                                   |
+| --------------------- | ------------------- | --------------------------------------------------------- |
+| `NEXT_PUBLIC_API_URL` | Base URL of the API | `https://student-management-api-mpdp.onrender.com/api/v1` |
 
 Both apps ship with committed example files (`.env.example` / `.env.local.example`) — copy them and fill in real values.
 
@@ -83,38 +83,38 @@ npm run dev
 
 ### Server (`server/`)
 
-| Script          | Description                              |
-|-----------------|------------------------------------------|
-| `npm run dev`   | Run API with hot reload                  |
-| `npm run build` | Generate Prisma client + compile TS       |
-| `npm run start` | Run compiled server (`dist/server.js`)    |
-| `npm run db:migrate` | Create/apply migrations              |
-| `npm run db:deploy`  | Apply migrations (production)        |
-| `npm run db:seed`    | Seed demo students                  |
-| `npm run db:studio`  | Open Prisma Studio                   |
-| `npm run db:generate`| Generate Prisma client               |
+| Script                | Description                            |
+| --------------------- | -------------------------------------- |
+| `npm run dev`         | Run API with hot reload                |
+| `npm run build`       | Generate Prisma client + compile TS    |
+| `npm run start`       | Run compiled server (`dist/server.js`) |
+| `npm run db:migrate`  | Create/apply migrations                |
+| `npm run db:deploy`   | Apply migrations (production)          |
+| `npm run db:seed`     | Seed demo students                     |
+| `npm run db:studio`   | Open Prisma Studio                     |
+| `npm run db:generate` | Generate Prisma client                 |
 
 ### Client (`client/`)
 
-| Script          | Description                              |
-|-----------------|------------------------------------------|
-| `npm run dev`   | Start Next.js dev server (port 3000)     |
-| `npm run build` | Production build                          |
-| `npm run start` | Serve production build                    |
-| `npm run lint`  | Run ESLint                                |
+| Script          | Description                          |
+| --------------- | ------------------------------------ |
+| `npm run dev`   | Start Next.js dev server (port 3000) |
+| `npm run build` | Production build                     |
+| `npm run start` | Serve production build               |
+| `npm run lint`  | Run ESLint                           |
 
 ## API Summary
 
-Base URL: `http://localhost:5000/api/v1`
+Base URL: `https://student-management-api-mpdp.onrender.com/api/v1`
 
-| Method | Path              | Description                                    |
-|--------|-------------------|------------------------------------------------|
-| GET    | `/health`         | Health check                                   |
-| GET    | `/students`       | List students (search, filter, paginate, sort) |
-| GET    | `/students/:id`   | Get a single student                           |
-| POST   | `/students`       | Create a student (201)                         |
-| PATCH  | `/students/:id`   | Update a student (partial allowed)             |
-| DELETE | `/students/:id`   | Delete a student                               |
+| Method | Path            | Description                                    |
+| ------ | --------------- | ---------------------------------------------- |
+| GET    | `/health`       | Health check                                   |
+| GET    | `/students`     | List students (search, filter, paginate, sort) |
+| GET    | `/students/:id` | Get a single student                           |
+| POST   | `/students`     | Create a student (201)                         |
+| PATCH  | `/students/:id` | Update a student (partial allowed)             |
+| DELETE | `/students/:id` | Delete a student                               |
 
 **Query params for `GET /students`**: `search` (name/email), `status` (`ACTIVE`/`INACTIVE`), `class`, `page`, `limit` (max 100), `sortBy` (`name`/`createdAt`/`class`), `sortOrder` (`asc`/`desc`).
 
@@ -128,10 +128,10 @@ See [`server/API.md`](./server/API.md) for full request/response examples.
 
 The API deploys from the [`server/render.yaml`](./server/render.yaml) blueprint (Postgres + web service). Connect the `server/` directory as the service root or use the blueprint directly. `DATABASE_URL` is auto-set from the provisioned Postgres; set these env vars manually:
 
-| Key | Value |
-|---|---|
-| `NODE_ENV` | `production` |
-| `PORT` | `10000` |
+| Key          | Value                                                                            |
+| ------------ | -------------------------------------------------------------------------------- |
+| `NODE_ENV`   | `production`                                                                     |
+| `PORT`       | `10000`                                                                          |
 | `CLIENT_URL` | your Vercel app URL, e.g. `https://student-management-dashboard-iota.vercel.app` |
 
 The start command runs `npm run db:deploy && npm run start`, so migrations are applied automatically on boot.
@@ -140,8 +140,8 @@ The start command runs `npm run db:deploy && npm run start`, so migrations are a
 
 Deploy the `client/` directory to Vercel (framework preset: Next.js). Set the environment variable:
 
-| Key | Value |
-|---|---|
+| Key                   | Value                                                                          |
+| --------------------- | ------------------------------------------------------------------------------ |
 | `NEXT_PUBLIC_API_URL` | your Render API URL, e.g. `https://student-management-api.onrender.com/api/v1` |
 
 Steps:

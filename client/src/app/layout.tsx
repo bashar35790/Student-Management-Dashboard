@@ -36,10 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
               <Link href="/" className="text-xl font-bold text-primary flex items-center gap-2">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                  <path d="M12 8L6 20H18L12 8Z" fill="currentColor"/>
+                  <path d="M12 2L2 22H22L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+                  <path d="M12 8L6 20H18L12 8Z" fill="currentColor" />
                 </svg>
-                Asylab Students
+                Student Management
               </Link>
               <nav className="flex items-center gap-4 text-sm font-medium text-foreground/80">
                 <Link href="/" className="hover:text-primary transition-colors">
