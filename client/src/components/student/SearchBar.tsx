@@ -23,7 +23,7 @@ export function SearchBar({ value, onChange, delay = 300 }: SearchBarProps) {
 
   return (
     <div className="relative">
-      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
+      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-foreground/50">
         <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path
             fillRule="evenodd"
@@ -38,7 +38,7 @@ export function SearchBar({ value, onChange, delay = 300 }: SearchBarProps) {
         onChange={(event) => setText(event.target.value)}
         placeholder="Search by name or email..."
         aria-label="Search students"
-        className="w-full rounded-md border border-gray-300 py-2 pl-9 pr-3 text-sm text-gray-900 outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        className="glass-panel w-full rounded-md py-2.5 pl-10 pr-3 text-sm text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-500"
       />
     </div>
   )

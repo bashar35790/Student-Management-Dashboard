@@ -61,17 +61,19 @@ export function StudentForm({
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
       {serverError && <Alert variant="error">{serverError}</Alert>}
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Input label="Name" placeholder="Student full name" error={errors.name?.message} {...register('name')} />
-        <Input label="Email" type="email" placeholder="student@example.com" error={errors.email?.message} {...register('email')} />
+      <div className="glass-panel p-6 sm:p-8 rounded-xl shadow-lg border-white/20">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <Input label="Name" placeholder="Student full name" error={errors.name?.message} {...register('name')} />
+          <Input label="Email" type="email" placeholder="student@example.com" error={errors.email?.message} {...register('email')} />
 
-        <Input label="Phone" placeholder="+1 555-0000" error={errors.phone?.message} {...register('phone')} />
-        <Input label="Class" placeholder="Grade 9A" error={errors.class?.message} {...register('class')} />
+          <Input label="Phone" placeholder="+1 555-0000" error={errors.phone?.message} {...register('phone')} />
+          <Input label="Class" placeholder="Grade 9A" error={errors.class?.message} {...register('class')} />
 
-        <Select label="Status" options={statusOptions} error={errors.status?.message} {...register('status')} />
+          <Select label="Status" options={statusOptions} error={errors.status?.message} {...register('status')} className="sm:col-span-2" />
+        </div>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-2">
         <Button type="submit" loading={isSubmitting}>
           {submitLabel}
         </Button>

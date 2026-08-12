@@ -24,12 +24,12 @@ export default function NewStudentPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-      <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">
+      <Link href="/" className="text-sm text-foreground/70 hover:text-primary transition-colors">
         &larr; Back to students
       </Link>
-      <h1 className="mt-3 mb-6 text-2xl font-bold text-gray-900">Add Student</h1>
+      <h1 className="mt-3 mb-6 text-3xl font-bold text-foreground tracking-tight">Add Student</h1>
 
-      <div className="rounded-lg border border-gray-200 bg-white p-6">
+      <div>
         <StudentForm
           submitLabel="Create Student"
           isSubmitting={isLoading}

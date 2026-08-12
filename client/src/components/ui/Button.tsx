@@ -8,11 +8,11 @@ const baseStyles =
   'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
 
 const variantStyles: Record<Variant, string> = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600',
-  secondary: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600',
-  dangerOutline: 'border border-red-300 bg-white text-red-600 hover:bg-red-50',
-  ghost: 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:ring-primary shadow-[0_4px_14px_0_rgba(255,45,95,0.39)] hover:shadow-[0_6px_20px_rgba(255,45,95,0.23)] hover:-translate-y-[1px] transition-all',
+  secondary: 'glass-panel text-gray-800 dark:text-gray-200 hover:bg-white/40 dark:hover:bg-white/10 transition-all',
+  danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600 shadow-[0_4px_14px_0_rgba(220,38,38,0.39)] hover:shadow-[0_6px_20px_rgba(220,38,38,0.23)] hover:-translate-y-[1px] transition-all',
+  dangerOutline: 'glass-panel text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300 dark:border-red-900/50 dark:hover:bg-red-900/20 transition-all',
+  ghost: 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white transition-all',
 }
 
 const sizeStyles: Record<Size, string> = {

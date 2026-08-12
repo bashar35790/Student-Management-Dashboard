@@ -32,8 +32,8 @@ export function ConfirmDialog({
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
     >
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <h2 id="confirm-dialog-title" className="text-lg font-semibold text-gray-900">
+      <div className="w-full max-w-md rounded-xl glass-panel p-6 shadow-2xl border-white/20">
+        <h2 id="confirm-dialog-title" className="text-lg font-semibold text-foreground">
           {title}
         </h2>
         <p className="mt-2 text-sm text-gray-600">{message}</p>

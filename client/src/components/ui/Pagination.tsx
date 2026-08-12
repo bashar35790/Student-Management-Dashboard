@@ -12,8 +12,8 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
   if (totalPages <= 1) return null
 
   return (
-    <nav className="flex items-center justify-between gap-4">
-      <p className="text-sm text-gray-600">
+    <nav className="flex items-center justify-between gap-4 glass-panel p-3 rounded-xl border-white/20 shadow-sm mt-4">
+      <p className="text-sm font-medium text-foreground/80 px-2">
         Page {page} of {totalPages}
       </p>
       <div className="flex items-center gap-2">

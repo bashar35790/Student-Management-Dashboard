@@ -72,12 +72,12 @@ export default function StudentsPage() {
     <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Students</h1>
-          <p className="text-sm text-gray-600">View, search, filter and manage student records.</p>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Students</h1>
+          <p className="text-sm text-foreground/60 mt-1">View, search, filter and manage student records.</p>
         </div>
         <Link
           href="/students/new"
-          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+          className="inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover shadow-[0_4px_14px_0_rgba(255,45,95,0.39)] hover:shadow-[0_6px_20px_rgba(255,45,95,0.23)] hover:-translate-y-[1px]"
         >
           Add Student
         </Link>

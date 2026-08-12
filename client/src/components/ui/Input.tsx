@@ -18,10 +18,10 @@ export function Input({ label, name, error, id, className = '', ...props }: Inpu
         name={name}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${inputId}-error` : undefined}
-        className={`rounded-md border px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:ring-2 ${
+        className={`glass-panel rounded-md px-3 py-2 text-sm text-foreground outline-none transition-all focus:ring-2 placeholder:text-gray-400 ${
           error
             ? 'border-red-400 focus:border-red-500 focus:ring-red-200'
-            : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
+            : 'focus:border-primary focus:ring-primary/20'
         } ${className}`}
         {...props}
       />

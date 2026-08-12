@@ -13,9 +13,9 @@ import { getApiErrorMessage } from '@/lib/errors'
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-      <dt className="text-sm text-gray-500">{label}</dt>
-      <dd className="text-sm font-medium text-gray-900">{value}</dd>
+    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between py-2">
+      <dt className="text-sm text-foreground/50 uppercase tracking-wider">{label}</dt>
+      <dd className="text-sm font-medium text-foreground">{value}</dd>
     </div>
   )
 }
@@ -52,27 +52,27 @@ export default function StudentDetailsPage() {
 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8">
-      <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">
+      <Link href="/" className="text-sm text-foreground/70 hover:text-primary transition-colors">
         &larr; Back to students
       </Link>
 
-      <div className="mt-4 rounded-lg border border-gray-200 bg-white p-6">
+      <div className="mt-4 rounded-xl glass-panel border-white/20 shadow-lg p-6 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-xl font-semibold text-blue-700">
+          <div className="flex items-center gap-5">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/15 text-2xl font-bold text-primary shadow-inner border border-primary/20">
               {student.name.charAt(0).toUpperCase()}
             </span>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">{student.name}</h1>
-              <div className="mt-1">
+              <h1 className="text-2xl font-bold text-foreground">{student.name}</h1>
+              <div className="mt-2">
                 <Badge tone={student.status === 'ACTIVE' ? 'success' : 'muted'}>{student.status}</Badge>
               </div>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <Link
               href={`/students/${student.id}/edit`}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+              className="inline-flex items-center rounded-md glass px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-white/40 shadow-sm hover:shadow"
             >
               Edit
             </Link>
@@ -82,9 +82,9 @@ export default function StudentDetailsPage() {
           </div>
         </div>
 
-        {feedback && <p className="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">{feedback}</p>}
+        {feedback && <p className="mt-6 rounded-md bg-red-50/50 glass px-4 py-3 text-sm text-red-700">{feedback}</p>}
 
-        <dl className="mt-6 flex flex-col gap-4 border-t border-gray-100 pt-6">
+        <dl className="mt-8 flex flex-col gap-2 border-t border-white/10 pt-6">
           <DetailRow label="Email" value={student.email} />
           <DetailRow label="Phone" value={student.phone} />
           <DetailRow label="Class" value={student.class} />
