@@ -26,11 +26,11 @@ export function SortableHeader({
       <button
         type="button"
         onClick={() => onSort(field)}
-        className="inline-flex items-center gap-1 font-medium hover:text-gray-900"
+        className="inline-flex items-center gap-1 font-semibold hover:text-primary transition-colors"
         aria-label={`Sort by ${label}`}
       >
         {label}
-        <span className={isActive ? 'text-blue-600' : 'text-gray-300'}>{indicator || '·'}</span>
+        <span className={isActive ? 'text-primary' : 'text-foreground/30'}>{indicator || '·'}</span>
       </button>
     </th>
   )
