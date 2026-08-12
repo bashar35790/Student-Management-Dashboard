@@ -5,7 +5,7 @@ type Variant = 'primary' | 'secondary' | 'danger' | 'dangerOutline' | 'ghost'
 type Size = 'sm' | 'md'
 
 const baseStyles =
-  'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
+  'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
 
 const variantStyles: Record<Variant, string> = {
   primary: 'bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:ring-primary shadow-[0_4px_14px_0_rgba(255,45,95,0.39)] hover:shadow-[0_6px_20px_rgba(255,45,95,0.23)] hover:-translate-y-[1px] transition-all',
