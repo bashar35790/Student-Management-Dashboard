@@ -22,7 +22,11 @@ export function SearchBar({ value, onChange, delay = 300 }: SearchBarProps) {
   }, [text, delay, onChange, value])
 
   return (
-    <div className="relative">
+    <div className="flex flex-col gap-1.5">
+      <label className="text-sm font-medium text-foreground/80">
+        Search
+      </label>
+      <div className="relative">
       <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-foreground/50">
         <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path
@@ -40,6 +44,7 @@ export function SearchBar({ value, onChange, delay = 300 }: SearchBarProps) {
         aria-label="Search students"
         className="glass-panel w-full rounded-md py-2.5 pl-10 pr-3 text-sm text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 placeholder:text-gray-500"
       />
+      </div>
     </div>
   )
 }

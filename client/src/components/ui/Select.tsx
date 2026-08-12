@@ -16,7 +16,7 @@ export function Select({ label, name, options, error, id, className = '', ...pro
   const selectId = id ?? name
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={selectId} className="text-sm font-medium text-gray-700">
+      <label htmlFor={selectId} className="text-sm font-medium text-foreground/80">
         {label}
       </label>
       <select
@@ -31,7 +31,7 @@ export function Select({ label, name, options, error, id, className = '', ...pro
         {...props}
       >
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} className="bg-background text-foreground">
             {option.label}
           </option>
         ))}

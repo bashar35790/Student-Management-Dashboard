@@ -77,7 +77,7 @@ export default function StudentsPage() {
         </div>
         <Link
           href="/students/new"
-          className="inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover shadow-[0_4px_14px_0_rgba(255,45,95,0.39)] hover:shadow-[0_6px_20px_rgba(255,45,95,0.23)] hover:-translate-y-[1px]"
+          className="inline-flex items-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary-hover shadow-[0_4px_14px_0_rgba(255,45,95,0.39)] hover:shadow-[0_6px_20px_rgba(255,45,95,0.23)] hover:-translate-y-px"
         >
           Add Student
         </Link>
